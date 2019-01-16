@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link rel="stylesheet" href="/assets/build/css/main.css">
+        <title>Max Almonte | PHPCollections version 1.0.0 is finally released</title>
+    </head>
+    <body>
+        <div class="container mx-auto px-12">
+            <div>
+                <div class="flex justify-between py-5">
+                    <a class="font-sans text-red font-black no-underline text-lg tracking-wide hover:text-light-red hover:underline" href="/">BLOG</a>
+                    <a class="font-sans text-red font-black no-underline text-lg tracking-wide hover:text-light-red hover:underline" href="/about">ABOUT</a>
+                </div>
+                <div class="border border-red"></div>
+            </div>
+
+                <div class="container mx-auto md:px-24">
+            <h1 class="post-title">PHPCollections version 1.0.0 is finally released</h1>
+
+    <p class="post-paragraph">PHPCollections is a set of Java/C#-like collections written in PHP, the idea behind this is to have a similar way of dealing with large and complex amounts of data in a powerful way with a simple API instead of working with plain PHP arrays.</p>
+
+    <p class="post-paragraph">I started this project about a year ago (the first commit date is 10/10/2017!), for whatever reason I never found the time to complete it, until now of course.</p>
+
+    <h3 class="post-subtitle">Why PHPCollections?</h3>
+
+    <p class="post-paragraph">Maybe you're thinking right now <i>"why work with collections?", "What is the big deal?", "We have beautiful native arrays!"</i>, and you are totally right, in a dynamic language like PHP, arrays fit almost any need.</p>
+
+    <p class="post-paragraph">But! Every day more people are using PHP to build larger and more complex applications, and manipulating data can turn into a really awful experience. So, here is when PHPCollections come to scene.</p>
+
+    <p class="post-paragraph">PHPCollections offers a set of different well-documented classes to fit different needs: do you need a stack to represent a set of descendant ordered data? Do you need to only store a certain type of object into a collection? Do you need a collection as flexible as native PHP arrays but with the power of object-oriented? PHPCollections has you cover!</p>
+
+    <h3 class="post-subtitle">Different type of collections</h3>
+
+    <p class="post-paragraph">Right now the package offers 4 different types of collections with different use cases and capabilities:</p>
+
+    <ul>
+        <li class="list-reset post-paragraph my-0">ArrayList</li>
+        <li class="list-reset post-paragraph my-0">Dictionary</li>
+        <li class="list-reset post-paragraph my-0">GenericList</li>
+        <li class="list-reset post-paragraph my-0">Stack</li>
+    </ul>
+
+    <h3 class="post-subtitle">Less talk, more code!</h3>
+
+    <p class="post-paragraph">My favorite type of collection without any doubt is GenericList, we all know that PHP doesn't support generic types, in languages like Java we can do something like this ArrayList<User> users = new ArrayList<User>(); to store just objects of type User into our collection, in PHP <b>you simply can't</b>, well, you couldn't until now.</p>
+
+    <pre><code class="php">
+    use PHPCollections\Collections\GenericList;
+    use Fake\Namespace\User;
+
+    $users = new GenericList(
+        User::class,
+        new User('Robert Smith'),
+        new User('Siouxsie Sioux'),
+    );    
+    </code></pre>
+
+    <p class="post-paragraph">Beautiful, now we have a collection of User objects and any intent to add some other type of data to the class will fail!</p>
+
+    <pre><code class="php">
+    $users->add(new \StdClass()); // This line throws an InvalidArgumentException!    
+    </code></pre>
+
+    <p class="post-paragraph">With this verification you can be more confident your program will run the right way because you're removing an error source.</p>
+
+    <p class="post-paragraph"><b>But wait, we love arrays!</b></p>
+
+    <p class="post-paragraph">That's right! That's the reason PHPCollections offers ArrayList</p>
+
+    <pre><code class="php">
+    use PHPCollections\Collections\ArrayList;
+    use Fake\Namespace\User;
+
+    $users = new ArrayList(
+        new User('Patricia Morrison'),
+        new User('Peter Murphy'),
+    );
+
+    /*
+    * I'll add this array as an user and it's ok because YOLO
+    */
+    $users->add(['name' => 'Sid Vicious']);     
+    </code></pre>
+
+    <p class="post-paragraph">Most collections offer a variety of useful methods, and even a fluent interface to manipulate your data.</p>
+
+    <pre><code class="php">
+    $users->map(function ($user) {
+        $user->name = sprintf('%s %s', 'Sr.', $user->name);
+        return $user;
+    })->merge([
+        new User('Ian Curtis'),
+        new User('Andrew Eldritch'),
+    ])->forEach(function ($user, $key) {
+        print($user->name);
+    })    
+    </code></pre>
+
+    <p class="post-paragraph">If you like the package you can find it on <a class="post-link" href="https://github.com/maxalmonte14/phpcollections">Github</a>, and check the documentation in <a class="post-link" href="https://github.com/maxalmonte14/phpcollections/tree/master/docs">here</a>.</p>
+
+    <h3 class="post-subtitle">Post-credits</h3>
+
+    <p class="post-paragraph">I put a lot of effort in building PHPCollections, if you come from the Java/C# world I hope you like it, if you're a pure PHP developer I hope you like it too! And if you haven't work with collections before I hope you give it a try. Thanks for staying this long!</p>
+    </div>
+
+            <footer>
+                <div class="border border-grey mt-10"></div>
+                <div class="flex justify-center py-5">
+                    <a href="https://www.github.com/maxalmonte14">
+                        <svg class="h-10 w-10 mx-1" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 96 96" style="enable-background:new 0 0 96 96;"><path style="fill:#ee5253;" d="M48.07,47.746c-0.022,0-0.047-0.001-0.07-0.002c-0.024,0.001-0.049,0.002-0.071,0.002c-5.957,0-11.206-1.508-14.308,1.34c-1.859,1.709-2.642,3.768-2.642,5.985c0,9.261,7.42,10.398,16.949,10.398h0.142c9.529,0,16.949-1.138,16.949-10.398c0-2.218-0.783-4.276-2.642-5.985C59.275,46.238,54.027,47.746,48.07,47.746z M39.968,60.401c-1.813,0-3.283-2.036-3.283-4.547s1.47-4.546,3.283-4.546s3.285,2.035,3.285,4.546S41.781,60.401,39.968,60.401z M56.031,60.401c-1.814,0-3.285-2.036-3.285-4.547s1.471-4.546,3.285-4.546c1.812,0,3.283,2.035,3.283,4.546S57.844,60.401,56.031,60.401z M48,0C21.489,0,0,21.49,0,48s21.489,48,48,48c26.509,0,48-21.49,48-48S74.509,0,48,0z M52.378,67.701c-0.86,0-2.57,0.002-4.378,0.004c-1.809-0.002-3.52-0.004-4.379-0.004c-3.803,0-18.863-0.291-18.863-18.445c0-4.177,1.432-7.233,3.775-9.778c-0.374-0.923-0.393-6.165,1.602-11.183c0,0,4.576,0.502,11.5,5.253c1.451-0.401,3.908-0.601,6.365-0.601c2.455,0,4.912,0.199,6.365,0.601c6.923-4.751,11.498-5.253,11.498-5.253c1.995,5.018,1.977,10.26,1.603,11.183c2.344,2.545,3.776,5.602,3.776,9.778C71.242,67.41,56.181,67.701,52.378,67.701z"/></svg>
+                    </a>
+     
+                    <a href="https://www.linkedin.com/in/maxalmonte14">
+                        <svg class="h-10 w-10 mx-1" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path style="fill:#ee5253;" d="m256 0c-141.363281 0-256 114.636719-256 256s114.636719 256 256 256 256-114.636719 256-256-114.636719-256-256-256zm-74.390625 387h-62.347656v-187.574219h62.347656zm-31.171875-213.1875h-.40625c-20.921875 0-34.453125-14.402344-34.453125-32.402344 0-18.40625 13.945313-32.410156 35.273437-32.410156 21.328126 0 34.453126 14.003906 34.859376 32.410156 0 18-13.53125 32.402344-35.273438 32.402344zm255.984375 213.1875h-62.339844v-100.347656c0-25.21875-9.027343-42.417969-31.585937-42.417969-17.222656 0-27.480469 11.601563-31.988282 22.800781-1.648437 4.007813-2.050781 9.609375-2.050781 15.214844v104.75h-62.34375s.816407-169.976562 0-187.574219h62.34375v26.558594c8.285157-12.78125 23.109375-30.960937 56.1875-30.960937 41.019531 0 71.777344 26.808593 71.777344 84.421874zm0 0"/></svg>
+                    </a>
+     
+                    <a href="https://www.twitter.com/maxalmonte14">
+                        <svg class="h-10 w-10 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49.652 49.652" style="fill:#ee5253;">
+                        <path d="M24.826,0C11.137,0,0,11.137,0,24.826c0,13.688,11.137,24.826,24.826,24.826c13.688,0,24.826-11.138,24.826-24.826C49.652,11.137,38.516,0,24.826,0z M35.901,19.144c0.011,0.246,0.017,0.494,0.017,0.742c0,7.551-5.746,16.255-16.259,16.255c-3.227,0-6.231-0.943-8.759-2.565c0.447,0.053,0.902,0.08,1.363,0.08c2.678,0,5.141-0.914,7.097-2.446c-2.5-0.046-4.611-1.698-5.338-3.969c0.348,0.066,0.707,0.103,1.074,0.103c0.521,0,1.027-0.068,1.506-0.199c-2.614-0.524-4.583-2.833-4.583-5.603c0-0.024,0-0.049,0.001-0.072c0.77,0.427,1.651,0.685,2.587,0.714c-1.532-1.023-2.541-2.773-2.541-4.755c0-1.048,0.281-2.03,0.773-2.874c2.817,3.458,7.029,5.732,11.777,5.972c-0.098-0.419-0.147-0.854-0.147-1.303c0-3.155,2.558-5.714,5.713-5.714c1.644,0,3.127,0.694,4.171,1.804c1.303-0.256,2.523-0.73,3.63-1.387c-0.43,1.335-1.333,2.454-2.516,3.162c1.157-0.138,2.261-0.444,3.282-0.899C37.987,17.334,37.018,18.341,35.901,19.144z"/></svg>
+                    </a>
+                </div>
+                <div class="flex justify-center mb-5">
+                    <h6 class="font-mono text-sm text-black tracking-tight">Copyright &copy; 2018 - 2019 Max Almonte All Rights Reserved.</h6>
+                </div>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js"></script>
+    </body>
+</html>
