@@ -120,7 +120,7 @@ class JSONParser implements ParserInterface
 
     <p class="post-paragraph">
         Right now we have an interface that allows us to parse data, pretty neat! But we have a problem.
-        An interface is a contract, and should be strictly followed by all classes that implementing it, without type hinting we don't know what kind of data should we pass to the <i>parse</i> method, and despite the fact that <a href="http://localhost:3000/blog/2018-10-10/why-we-need-mixed-types-in-php/" class="post-link">I advocated for this relaxed style in the past</a> (and still do!), this behavior is unwanted most of the time.
+        An interface is a contract, and should be strictly followed by all classes that implementing it, without type hinting we don't know what kind of data should we pass to the <i>parse</i> method, and despite the fact that <a href="/2018-10-10/why-we-need-mixed-types-in-php/" class="post-link">I advocated for this relaxed style in the past</a> (and still do!), this behavior is unwanted most of the time.
     </p>
 
     <p class="post-paragraph">
@@ -313,21 +313,21 @@ Fatal error: Declaration of JSONParser::parse(JSON $JSONData): string must be co
         Just for demonstration purposes, let's see how we can implement the same logic using a more object-oriented language, in this case, C#.
 
 <pre><code class="csharp hljs">
-public interface IParser &lt;out T&gt; where T : Format
+public interface IParser &lt;in T&gt; where T : Format
 {
-    T Parse(string data);
+    string Parse(T data);
 }
 <br>
 public abstract class Format
 {
-    protected string value;
+    protected Dictionary&lt;string, string&gt; value;
 
-    public Format(string value)
+    public Format(Dictionary&lt;string, string&gt; value)
     {
         this.value = value;
     }
 
-    public string GetValue()
+    public Dictionary&lt;string, string&gt; GetValue()
     {
         return value;
     }
@@ -335,7 +335,7 @@ public abstract class Format
 <br>
 public class JSON : Format
 {
-    public JSON(string value) : base(value)
+    public JSON(Dictionary&lt;string, string&gt; value) : base(value)
     {
     }
 
@@ -344,9 +344,9 @@ public class JSON : Format
 <br>
 public class JSONParser : IParser&lt;JSON&gt;
 {
-    public JSON Parse(string JSONString)
+    public string Parse(JSON JSONData)
     {
-        return new JSON(JSONString);
+        // Let's suppose we're implementing the logic needed in here...
     }
 }
 </code></pre>
