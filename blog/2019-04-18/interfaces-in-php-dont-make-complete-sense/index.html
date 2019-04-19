@@ -133,7 +133,7 @@ class JSONParser implements ParserInterface
     public function parse($data)
     {
         if (!is_array($data)) {
-            throw new UnparseableException('Unsupported type as argument. Please provide and array');
+            throw new UnparseableException('Unsupported type as argument. Please provide an array');
         }
 
         $parsed = json_encode($data);
